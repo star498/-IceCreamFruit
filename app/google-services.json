@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "392658853332",
+    "firebase_url": "https://icecreamfruit.firebaseio.com",
+    "project_id": "icecreamfruit",
+    "storage_bucket": "icecreamfruit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392658853332:android:28ca6476f9a50de3",
+        "android_client_info": {
+          "package_name": "com.example.estrellabarrientosmogollon.icecreamfruit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392658853332-col9s0b0ct1nkudknobpk77b3iq67s0s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.estrellabarrientosmogollon.icecreamfruit",
+            "certificate_hash": "cf66c49c1566a9e5da1dcebcb127239d64c2332a"
+          }
+        },
+        {
+          "client_id": "392658853332-dc618in4gs45p3bj71mhp2rf4nrdt069.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoXpol2RCC0JxzaXDiYpNOh-G879M7OLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392658853332-dc618in4gs45p3bj71mhp2rf4nrdt069.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
