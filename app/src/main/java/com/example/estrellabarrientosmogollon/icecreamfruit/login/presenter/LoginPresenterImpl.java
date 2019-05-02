@@ -75,15 +75,12 @@ public class LoginPresenterImpl extends BaseFragmentPresenterImpl<LoginView> imp
     }
 
     @Override
-    public void crearCuenta() {
+    public void crearCuenta(String usuario, String pass, String celular) {
         Log.d(TAG, "crearCuenta");
         if(view==null)return;
-        view.showProgress();
-        String random= getRamdonUserAndPass();
-        handler.execute(useCaseCrearCuenta, new UseCaseCrearCuenta.RequestValues(random, random, 0), new UseCase.UseCaseCallback<UseCaseCrearCuenta.ResponseValue>() {
+        handler.execute(useCaseCrearCuenta, new UseCaseCrearCuenta.RequestValues(usuario, pass, 0, celular), new UseCase.UseCaseCallback<UseCaseCrearCuenta.ResponseValue>() {
             @Override
             public void onSuccess(UseCaseCrearCuenta.ResponseValue response) {
-                view.hideProgress();
                 if(response.getUsuarioUi()!=null){
                     Log.d(TAG, "response "+ response.getUsuarioUi().getUsuario());
                     startActivity(response.getUsuarioUi());

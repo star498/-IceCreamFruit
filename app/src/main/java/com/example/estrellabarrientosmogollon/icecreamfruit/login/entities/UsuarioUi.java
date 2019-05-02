@@ -7,6 +7,7 @@ public class UsuarioUi {
     private boolean estado;
     private int tipo;
     private String currentuserid;
+    private String celular;
 
     public String getId() {
         return id;
@@ -54,5 +55,13 @@ public class UsuarioUi {
 
     public void setCurrentuserid(String currentuserid) {
         this.currentuserid = currentuserid;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 }

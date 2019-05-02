@@ -2,10 +2,13 @@ package com.example.estrellabarrientosmogollon.icecreamfruit.login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -80,8 +83,30 @@ public class Login extends BaseActivity<LoginView, LoginPresenter> implements Lo
         return (ProgressBar) findViewById(R.id.progressbar);
     }
 
-    public void crearCuenta(View view){
-        presenter.crearCuenta();
+    public void showcrearCuenta(View view) {
+       createCuentaDialog().show();
+
+    }
+    public AlertDialog createCuentaDialog() {
+        final AlertDialog alertDialog;
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View v = inflater.inflate(R.layout.main_registrar, null);
+        final EditText user=(EditText)v.findViewById(R.id.txtuser);
+        final EditText pass=(EditText)v.findViewById(R.id.txtpass);
+        final EditText celular=(EditText)v.findViewById(R.id.txttelefono);
+        final ProgressBar progressBar=(ProgressBar)v.findViewById(R.id.progressBar);
+        Button btncrear=(Button)v.findViewById(R.id.crearcuenta) ;
+        btncrear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                presenter.crearCuenta(String.valueOf(user.getText()), String.valueOf(pass.getText()), String.valueOf(celular.getText()));
+            }
+        });
+        builder.setView(v);
+        alertDialog = builder.create();
+        return alertDialog;
     }
 
     public void login(View view){

@@ -25,7 +25,7 @@ public class DataSourceLoginImpl implements  DataSourceLogin {
     private String TAG=DataSourceLoginImpl.class.getSimpleName();
     final FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     @Override
-    public void createAccount(final String usuario, final  String pass, final int tipo , final Callback<UsuarioUi>callback) {
+    public void createAccount(final String usuario, final  String pass, final int tipo , final String celular,final Callback<UsuarioUi>callback) {
 
         final DatabaseReference databaseUser= FirebaseDatabase.getInstance().getReference().child("usuario");
 
@@ -56,6 +56,7 @@ public class DataSourceLoginImpl implements  DataSourceLogin {
                                 usuarioUi.setPass(pass);
                                 usuarioUi.setUsuario(correo);
                                 usuarioUi.setTipo(tipo);
+                                usuarioUi.setCelular(celular);
                                 usuarioUi.setCurrentuserid(user.getUid());
                                 databaseUser.child(id).setValue(usuarioUi);
                                 callback.onLoad(true, usuarioUi);
@@ -79,7 +80,7 @@ public class DataSourceLoginImpl implements  DataSourceLogin {
         final DatabaseReference databaseUser= FirebaseDatabase.getInstance().getReference().child("usuario");
         final String correo = usuario+"@icecreamfruit.com";
         Log.d(TAG, "correo "+ correo);
-        firebaseAuth.signInWithEmailAndPassword(correo, pass.toUpperCase()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){

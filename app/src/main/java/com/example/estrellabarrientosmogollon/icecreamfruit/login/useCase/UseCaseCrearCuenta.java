@@ -16,7 +16,7 @@ public class UseCaseCrearCuenta extends UseCase<UseCaseCrearCuenta.RequestValues
 
     @Override
     protected void executeUseCase(RequestValues request) {
-        repositoryLogin.createAccount(request.getUser(), request.getPass(), request.getTipo(), new DataSourceLogin.Callback<UsuarioUi>() {
+        repositoryLogin.createAccount(request.getUser(), request.getPass(), request.getTipo(), request.getCelular(),new DataSourceLogin.Callback<UsuarioUi>() {
             @Override
             public void onLoad(boolean success, UsuarioUi item) {
                 getUseCaseCallback().onSuccess(new ResponseValue(item));
@@ -28,11 +28,14 @@ public class UseCaseCrearCuenta extends UseCase<UseCaseCrearCuenta.RequestValues
         private String user;
         private String pass;
         private int tipo;
+        private String celular;
 
-        public RequestValues(String user, String pass, int tipo) {
+
+        public RequestValues(String user, String pass, int tipo, String celular) {
             this.user = user;
             this.pass = pass;
             this.tipo = tipo;
+            this.celular=celular;
         }
 
         public String getUser() {
@@ -45,6 +48,10 @@ public class UseCaseCrearCuenta extends UseCase<UseCaseCrearCuenta.RequestValues
 
         public int getTipo() {
             return tipo;
+        }
+
+        public String getCelular() {
+            return celular;
         }
     }
     public static class ResponseValue implements UseCase.ResponseValue {

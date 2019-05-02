@@ -14,102 +14,77 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.estrellabarrientosmogollon.icecreamfruit.R;
+import com.example.estrellabarrientosmogollon.icecreamfruit.config.base.UseCaseHandler;
+import com.example.estrellabarrientosmogollon.icecreamfruit.config.base.UseCaseThreadPoolScheduler;
+import com.example.estrellabarrientosmogollon.icecreamfruit.config.base.activity.BaseActivity;
 import com.example.estrellabarrientosmogollon.icecreamfruit.login.entities.UsuarioWrapper;
+import com.example.estrellabarrientosmogollon.icecreamfruit.login.view.Login;
+import com.example.estrellabarrientosmogollon.icecreamfruit.main.presenter.MainPresenter;
+import com.example.estrellabarrientosmogollon.icecreamfruit.main.presenter.MainPresenterImpl;
+import com.example.estrellabarrientosmogollon.icecreamfruit.main.view.MainView;
 
 
-public class Main extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener extends Base {
+public class Main extends BaseActivity<MainView, MainPresenter> implements MainView{
+    private String TAG= Main.class.getSimpleName();
 
 
     public static Intent launchActivity(Context context, UsuarioWrapper usuarioWrapper) {
         Intent intent = new Intent(context, Main.class);
-        Bundle bundle= new Bundle();
-        intent.putExtras(usuarioWrapper.convertBundle(bundle));
+        intent.putExtras(usuarioWrapper.convertBundle(new Bundle()));
         return intent;
     }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    protected String getTag() {
+        return TAG;
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    protected AppCompatActivity getActivity() {
+        return this;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    protected MainPresenter getPresenter() {
+        presenter = new MainPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources());
+        return presenter;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    protected MainView getBaseView() {
+        return this;
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+    protected Bundle getExtrasInf() {
+        return getIntent().getExtras();
+    }
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+    @Override
+    protected void setContentView() {
+        setContentView(R.layout.main_activity);
+    }
 
-        } else if (id == R.id.nav_slideshow) {
+    @Override
+    protected ViewGroup getRootLayout() {
+        return null;
+    }
 
-        } else if (id == R.id.nav_manage) {
+    @Override
+    protected ProgressBar getProgressBar() {
+        return null;
+    }
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    @Override
+    public void startLogin() {
+      Intent intent=new Intent(this, Login.class);
+      startActivity(intent);
+    }
+    public void logout(View view){
+        presenter.logout();
     }
 }

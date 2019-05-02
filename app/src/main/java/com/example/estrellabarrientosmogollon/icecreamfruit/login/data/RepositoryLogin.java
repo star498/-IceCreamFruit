@@ -11,8 +11,8 @@ public class RepositoryLogin implements DataSourceLogin{
     }
 
     @Override
-    public void createAccount(String usuario, String pass, int tipo, Callback<UsuarioUi>callback) {
-         dataSourceLoginImpl.createAccount(usuario, pass, tipo, callback);
+    public void createAccount(String usuario, String pass, int tipo,String celular, Callback<UsuarioUi>callback) {
+         dataSourceLoginImpl.createAccount(usuario, pass, tipo,celular, callback);
     }
 
     @Override

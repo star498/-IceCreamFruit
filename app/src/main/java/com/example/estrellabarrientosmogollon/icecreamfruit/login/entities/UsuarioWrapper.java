@@ -1,6 +1,7 @@
 package com.example.estrellabarrientosmogollon.icecreamfruit.login.entities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import java.io.Serializable;
 
@@ -56,7 +57,9 @@ public class UsuarioWrapper implements Serializable {
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
+
     public Bundle convertBundle(Bundle bundle){
+        Log.d(getClass().getSimpleName(), "bundle "+ usuario);
         bundle.putString(USUARIO, usuario);
         bundle.putString(PASS, pass);
         bundle.putString(IDCURRENT, idcurrent);
@@ -65,6 +68,7 @@ public class UsuarioWrapper implements Serializable {
         return bundle;
     }
     public static UsuarioWrapper getBundle(Bundle bundle){
+        if(bundle==null)return null;
         UsuarioWrapper usuarioWrapper= new UsuarioWrapper();
         usuarioWrapper.setId(bundle.getString(ID));
         usuarioWrapper.setUsuario(bundle.getString(USUARIO));
